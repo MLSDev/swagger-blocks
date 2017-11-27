@@ -27,6 +27,7 @@ module Swagger
       autoload :ScopesNode, 'swagger/blocks/nodes/scopes_node'
       autoload :SecurityRequirementNode, 'swagger/blocks/nodes/security_requirement_node'
       autoload :SecuritySchemeNode, 'swagger/blocks/nodes/security_scheme_node'
+      autoload :ServerNode, 'swagger/blocks/nodes/server_node'
       autoload :TagNode, 'swagger/blocks/nodes/tag_node'
       autoload :XmlNode, 'swagger/blocks/nodes/xml_node'
     end

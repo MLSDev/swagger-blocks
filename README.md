@@ -37,7 +37,7 @@ Also note that **Rails is not required**, you can use Swagger::Blocks in plain R
 
 ### PetsController
 
-```Ruby
+```ruby
 class PetsController < ActionController::Base
   include Swagger::Blocks
 
@@ -159,7 +159,7 @@ end
 
 #### Pet model
 
-```Ruby
+```ruby
 class Pet < ActiveRecord::Base
   include Swagger::Blocks
 
@@ -219,11 +219,11 @@ end
 
 To integrate these definitions with Swagger UI, we need a docs controller that can serve the JSON definitions.
 
-```Ruby
+```ruby
 resources :apidocs, only: [:index]
 ```
 
-```Ruby
+```ruby
 class ApidocsController < ActionController::Base
   include Swagger::Blocks
 
@@ -272,7 +272,7 @@ end
 
 The special part of this controller is this line:
 
-```Ruby
+```ruby
 render json: Swagger::Blocks.build_root_json(SWAGGERED_CLASSES)
 ```
 
@@ -280,7 +280,7 @@ That is the only line necessary to build the full [root Swagger object](https://
 
 If you want to include controllers outside the standard path just use the full class path including module names, like:
 
-```Ruby
+```ruby
 SWAGGERED_CLASSES = [
   Api::V1::PetsController,
   self,
@@ -295,7 +295,7 @@ Now, simply point Swagger UI at `/apidocs` and everything should Just Work™. I
 
 To support Swagger's definitions for API key auth or OAuth2, use `security_definition` in your `swagger_root`:
 
-```Ruby
+```ruby
   swagger_root do
     key :swagger, '2.0'
 
@@ -320,7 +320,7 @@ To support Swagger's definitions for API key auth or OAuth2, use `security_defin
 
 You can then apply [security requirement objects](https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#securityRequirementObject) to the entire `swagger_root`, or to individual operations:
 
-```Ruby
+```ruby
   swagger_path '/pets/{id}' do
     operation :get do
 
@@ -404,7 +404,7 @@ These inline keys can be used on any block, not just `parameter` blocks.
 
 If you are not serving the JSON directly and need to write it to a file for some reason, you can easily use `build_root_json` for that as well:
 
-```Ruby
+```ruby
 swagger_data = Swagger::Blocks.build_root_json(SWAGGERED_CLASSES)
 File.open('swagger.json', 'w') { |file| file.write(swagger_data.to_json) }
 ```
@@ -413,7 +413,7 @@ File.open('swagger.json', 'w') { |file| file.write(swagger_data.to_json) }
 
 If certain attributes must be customized on-the-fly, you can merge a hash containing the customized values on the returned JSON. You can wrap ```build_root_json``` inside your own method:
 
-```Ruby
+```ruby
 def build_and_override_root_json(overrides = {})
   Swagger::Blocks.build_root_json(SWAGGERED_CLASSES).merge(overrides)
 end

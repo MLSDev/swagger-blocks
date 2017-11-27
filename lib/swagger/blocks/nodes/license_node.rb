@@ -1,7 +1,8 @@
 module Swagger
   module Blocks
     module Nodes
-      # v2.0: https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#license-object
+      # v2.0: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#license-object
+      # v3.0.0: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#license-object
       class LicenseNode < Node
       end
     end

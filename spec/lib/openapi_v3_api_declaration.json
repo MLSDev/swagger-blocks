@@ -1,0 +1,35 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "OpenAPI Petstore",
+    "description": "A sample API that uses a petstore as an example to demonstrate features in the openapi-3.0.0 specification",
+    "termsOfService": "http://helloreverb.com/terms/",
+    "contact": {
+      "name": "Wordnik API Team"
+    },
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://petstore.swagger.wordnik.com/api",
+      "description": "Production"
+    }
+  ],
+  "externalDocs": {
+    "description": "Find more info here",
+    "url": "https://swagger.io"
+  },
+  "tags": [
+    {
+      "name": "pet",
+      "description": "Pets operations",
+      "externalDocs": {
+        "description": "Find more info here",
+        "url": "https://swagger.io"
+      }
+    }
+  ]
+}

@@ -10,7 +10,7 @@ module Swagger
         instance = new
         instance.name = options[:name] if options[:name]
         instance.version = options[:version]
-        instance.keys options[:inline_keys]
+        instance.keys(options[:inline_keys])
         instance.instance_eval(&block) if block
         instance
       end
@@ -26,7 +26,7 @@ module Swagger
             value.each { |v| result[key] << (v.respond_to?(:as_json) ? v.as_json : v) }
           elsif is_swagger_2_0? && value.is_a?(Hash)
             result[key] = {}
-            value.each_pair {|k, v| result[key][k] = (v.respond_to?(:as_json) ? v.as_json : v) }
+            value.each_pair { |k, v| result[key][k] = (v.respond_to?(:as_json) ? v.as_json : v) }
           elsif is_swagger_2_0? && key.to_s.eql?('$ref') && (value.to_s !~ %r{^#/|https?://})
             result[key] = "#/definitions/#{value}"
           else
@@ -35,7 +35,7 @@ module Swagger
         end
         return result if !name
         # If 'name' is given to this node, wrap the data with a root element with the given name.
-        {name => result}
+        { name => result }
       end
 
       def data
@@ -53,11 +53,16 @@ module Swagger
       def version
         return @version if instance_variable_defined?('@version') && @version
         return '2.0' if data.has_key?(:swagger) && data[:swagger] == '2.0'
-        raise DeclarationError, "You must specify swagger '2.0'"
+        return '3.0' if data.has_key?(:openapi) && data[:openapi].start_with?('3.0')
+        raise DeclarationError, "You must specify swagger '2.0' or openapi '3.0.0'"
       end
 
       def is_swagger_2_0?
         version == '2.0'
+      end
+
+      def is_openapi_3?
+        version == '3.0'
       end
     end
   end

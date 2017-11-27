@@ -37,15 +37,20 @@ module Swagger
           self.data[:security] << Swagger::Blocks::Nodes::SecurityRequirementNode.call(version: version, inline_keys: inline_keys, &block)
         end
 
-        def externalDocs(inline_keys = nil, &block)
-          self.data[:externalDocs] = Swagger::Blocks::Nodes::ExternalDocsNode.call(version: version, inline_keys: inline_keys, &block)
+        def server(inline_keys = nil, &block)
+          raise NotSupportedError unless is_openapi_3?
+
+          self.data[:servers] ||= []
+          self.data[:servers] << Swagger::Blocks::Nodes::ServerNode.call(version: version, inline_keys: inline_keys, &block)
         end
 
         def tag(inline_keys = nil, &block)
-          raise NotSupportedError unless is_swagger_2_0?
-
           self.data[:tags] ||= []
           self.data[:tags] << Swagger::Blocks::Nodes::TagNode.call(version: version, inline_keys: inline_keys, &block)
+        end
+
+        def externalDocs(inline_keys = nil, &block)
+          self.data[:externalDocs] = Swagger::Blocks::Nodes::ExternalDocsNode.call(version: version, inline_keys: inline_keys, &block)
         end
 
         # Use 'tag' instead.

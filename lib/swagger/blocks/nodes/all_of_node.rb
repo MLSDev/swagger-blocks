@@ -14,7 +14,7 @@ module Swagger
               result << r
             elsif is_swagger_2_0? && value.is_a?(Hash)
               r = {}
-              value.each_pair {|k, v| r[k] = (v.respond_to?(:as_json) ? v.as_json : v) }
+              value.each_pair { |k, v| r[k] = (v.respond_to?(:as_json) ? v.as_json : v) }
               result << r
             else
               result = value
@@ -22,7 +22,7 @@ module Swagger
           end
           return result if !name
           # If 'name' is given to this node, wrap the data with a root element with the given name.
-          {name => result}
+          { name => result }
         end
 
         def data

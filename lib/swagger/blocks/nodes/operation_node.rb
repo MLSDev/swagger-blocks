@@ -1,10 +1,11 @@
 module Swagger
   module Blocks
     module Nodes
-      # v2.0: https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#operation-object
+      # v2.0: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#operation-object
+      # v3.0.0: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#operationObject
       class OperationNode < Node
         def parameter(inline_keys = nil, &block)
-          inline_keys = {'$ref' => "#/parameters/#{inline_keys}"} if inline_keys.is_a?(Symbol)
+          inline_keys = { '$ref' => "#/parameters/#{ inline_keys }" } if inline_keys.is_a?(Symbol)
 
           self.data[:parameters] ||= []
           self.data[:parameters] << Swagger::Blocks::Nodes::ParameterNode.call(version: version, inline_keys: inline_keys, &block)
@@ -23,6 +24,13 @@ module Swagger
         def security(inline_keys = nil, &block)
           self.data[:security] ||= []
           self.data[:security] << Swagger::Blocks::Nodes::SecurityRequirementNode.call(version: version, inline_keys: inline_keys, &block)
+        end
+
+        def server(inline_keys = nil, &block)
+          raise NotSupportedError unless is_openapi_3?
+
+          self.data[:servers] ||= []
+          self.data[:servers] << Swagger::Blocks::Nodes::ServerNode.call(version: version, inline_keys: inline_keys, &block)
         end
       end
     end

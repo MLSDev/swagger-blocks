@@ -53,7 +53,7 @@ module Swagger
         @swagger_api_root_node_map ||= {}
         @swagger_models_node ||= nil
 
-        data = {root_node: @swagger_root_node}
+        data = { root_node: @swagger_root_node }
         data[:path_node_map] = @swagger_path_node_map
         data[:schema_node_map] = @swagger_schema_node_map
         data[:api_node_map] = @swagger_api_root_node_map
