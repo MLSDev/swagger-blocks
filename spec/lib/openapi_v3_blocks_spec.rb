@@ -24,7 +24,6 @@ class PetControllerV3
     end
     server do
       key :url, 'http://petstore.swagger.wordnik.com/api'
-      key :description, 'Production'
     end
     externalDocs description: 'Find more info here' do
       key :url, 'https://swagger.io'

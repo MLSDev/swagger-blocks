@@ -14,8 +14,7 @@
   },
   "servers": [
     {
-      "url": "http://petstore.swagger.wordnik.com/api",
-      "description": "Production"
+      "url": "http://petstore.swagger.wordnik.com/api"
     }
   ],
   "externalDocs": {
